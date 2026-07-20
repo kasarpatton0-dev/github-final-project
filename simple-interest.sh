@@ -1,22 +1,23 @@
-def calculate_simple_interest(principal, rate, time):
-    """
-    Calculates simple interest and total balance.
-    rate is expected as a percentage (e.g., 5 for 5%)
-    time is expected in years
-    """
-    interest = principal * (rate / 100) * time
-    total_balance = principal + interest
-    return interest, total_balance
+#!/bin/bash
 
+# Simple Interest Calculator Script
 
-# Ex:
-p = 1000  # Principal
-r = 5  # Annual Interest Rate (5%)
-t = 5  # Time in years
+echo "-----------------------------------"
+echo "    Simple Interest Calculator"
+echo "-----------------------------------"
 
-interest_earned, final_amount = calculate_simple_interest(p, r, t)
+# Prompt user for inputs
+read -p "Enter the Principal amount ($): " principal
+read -p "Enter the Annual Interest Rate (%): " rate
+read -p "Enter the Time period (in years): " time
 
-print(f"Principal: ${p:,}")
-print(f"Interest Earned over {t} years: ${interest_earned:,}")
-print(f"Total Balance: ${final_amount:,}")
+# Calculate Simple Interest using 'bc' for floating-point arithmetic
+interest=$(echo "scale=2; ($principal * $rate * $time) / 100" | bc)
+total=$(echo "scale=2; $principal + $interest" | bc)
 
+# Display results
+echo "-----------------------------------"
+echo "Results:"
+echo "Simple Interest Accrued: \$$interest"
+echo "Total Amount: \$$total"
+echo "-----------------------------------"
